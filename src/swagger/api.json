@@ -1,0 +1,213 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "nodejs-ts-web-api-oas3-example",
+    "description": "Operations CRUD API in NodeJs using TypeScript",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "servers": [
+    {
+      "url": "/",
+      "description": "Local Dev"
+    },
+    {
+      "url": "/api/",
+      "description": "With docker"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Operations",
+      "description": "API for operations in the system"
+    }
+  ],
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+  "paths": {
+    "/operations": {
+      "get": {
+        "tags": ["Operations"],
+        "summary": "Get all operations in system",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Operations"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Operations"],
+        "summary": "Create a new operation in system",
+        "requestBody": {
+          "description": "Operations Object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/Operations"
+              }
+            }
+          }
+        },
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/id"
+            }
+          },
+          "400": {
+            "description": "Failed. Bad post data."
+          }
+        }
+      }
+    },
+    "/operations/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "description": "ID of the operation that we want to match",
+          "type": "string"
+        }
+      ],
+      "get": {
+        "tags": ["Operations"],
+        "summary": "Get operations with given ID",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "Operation with id",
+            "schema": {
+              "$ref": "#/definitions/id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Operation"
+            }
+          },
+          "404": {
+            "description": "Failed. Operation not found."
+          }
+        }
+      },
+      "put": {
+        "summary": "Update operation with given ID",
+        "tags": ["Operations"],
+        "requestBody": {
+          "description": "Operation Object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/Operation"
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "Operation with new values of properties",
+            "schema": {
+              "$ref": "#/definitions/id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Cat"
+            }
+          },
+          "400": {
+            "description": "Failed. Bad post data."
+          },
+          "404": {
+            "description": "Failed. Operation not found."
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete operation with given ID",
+        "tags": ["Operations"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "Delete Operation with id",
+            "schema": {
+              "$ref": "#/definitions/id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/id"
+            }
+          },
+          "404": {
+            "description": "Failed. Operation not found."
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "id": {
+      "properties": {
+        "id": {
+          "type": "number"
+        }
+      }
+    },
+    "Operation": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "number"
+        },
+        "id": {
+          "type": "number"
+        },
+        "title": {
+          "type": "string"
+        },
+        "body": {
+          "type": "string"
+        }
+      }
+    },
+    "Operations": {
+      "type": "object",
+      "properties": {
+        "operations": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/Operation"
+          }
+        }
+      }
+    }
+  }
+}
