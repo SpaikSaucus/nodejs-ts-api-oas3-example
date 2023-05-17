@@ -13,7 +13,7 @@ NodeJS TypeScript api example with OAS3
 
 ## Getting Started
 
-* Download repository
+* Download this repository
 * Use VS Code IDE :point_right: [download](https://code.visualstudio.com/download)
 * Install TypeScript
 	```bash
